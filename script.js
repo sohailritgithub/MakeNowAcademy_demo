@@ -1,8 +1,7 @@
-// Chatbox state
 let chatOpen = false;
 let chatEntries = [];
+let firstRender = true;
 
-// Toggle chatbox
 function toggleChatbox() {
   chatOpen = !chatOpen;
   const chatbox = document.getElementById("chatbox");
@@ -13,14 +12,12 @@ function toggleChatbox() {
   }
 }
 
-// Close chatbox
 function closeChatbox() {
   chatOpen = false;
   const chatbox = document.getElementById("chatbox");
   chatbox.style.display = "none";
 }
 
-// Handle chat input
 function handleChatInput(input) {
   if (input === "Are you a beginner?") {
     chatEntries = [
@@ -54,12 +51,9 @@ function handleChatInput(input) {
   renderChat();
 }
 
-// Render chat messages
 function renderChat() {
   const chatMessages = document.getElementById("chat-messages");
   chatMessages.innerHTML = "";
-
-  // Loop through chatEntries and create HTML for each
 
   chatMessages.scrollTop = chatMessages.scrollHeight;
   chatEntries.forEach((entry) => {
@@ -78,16 +72,33 @@ function renderChat() {
   });
 }
 
-// Page loaded
 document.addEventListener("DOMContentLoaded", () => {
-  // Get DOM elements
   const chatbotBtn = document.getElementById("chatbot-btn");
   const chatboxClose = document.getElementById("chatbox-close");
 
-  // Attach event listeners
   chatbotBtn.addEventListener("click", toggleChatbox);
   chatboxClose.addEventListener("click", closeChatbox);
 
-  // Initial render
   renderChat();
 });
+
+const animateContent = document.querySelector("#animate-content");
+const container = document.querySelector("#container");
+
+function checkScroll() {
+  console.log(firstRender);
+  if (window.pageYOffset > container.offsetTop - 500) {
+    animateContent.setAttribute("data-animate", "true");
+    if (firstRender) {
+      chatbox.style.display = "flex";
+      firstRender = false;
+    }
+  } else {
+    animateContent.setAttribute("data-animate", "false");
+  }
+}
+
+window.addEventListener("scroll", checkScroll);
+window.addEventListener("resize", checkScroll);
+
+checkScroll();
