@@ -115,7 +115,7 @@ body {
 
 /* styles.css */
 #container {
-  overflow: hidden;
+  /* overflow: hidden; */
   position: relative;
 }
 
@@ -137,4 +137,20 @@ body {
 #animate-content[data-animate="true"] {
   animation: slideFromRight 0.5s ease-out;
   animation-fill-mode: forwards;
+}
+
+section {
+  flex: 0 0 100vw; /* 100% of the viewport width */
+  height: 100vh; /* 100% of the viewport height */
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+  scroll-snap-align: start;
+}
+
+#containers {
+  display: flex;
+  white-space: nowrap;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  scroll-snap-type: x mandatory;
 }
